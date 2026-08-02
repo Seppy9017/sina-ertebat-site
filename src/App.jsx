@@ -77,7 +77,7 @@ function Header({ cartCount, onOpenCart }) {
         </nav>
 
         <div className="header-actions">
-          <a href="#/panel" className="cart-btn">
+          <a href="#/panel" className="cart-btn login-btn">
             <UserIcon size={18} />
             <span>{loggedIn ? "پنل من" : "ورود"}</span>
           </a>

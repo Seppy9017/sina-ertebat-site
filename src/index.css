@@ -80,7 +80,7 @@ svg {
    not just its layout box. This is what made header icons go tiny on
    narrow screens. */
 .icon {
-  flex-shrink: 0;
+  flex: 0 0 auto;
 }
 
 a {
@@ -1186,6 +1186,13 @@ a.contact-row:hover {
     display: flex;
   }
 
+  /* below this width the hamburger menu takes over navigation, and its
+     dropdown already has its own "ورود" link — showing it a second time
+     in the header just crowds the row */
+  .login-btn {
+    display: none;
+  }
+
   .admin-form-row {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1236,16 +1243,6 @@ a.contact-row:hover {
 
   .header-row {
     gap: 10px;
-  }
-
-  /* keep header buttons icon-only on narrow phones so brand + nav
-     controls don't crowd or wrap the header row */
-  .cart-btn {
-    padding: 9px 10px;
-  }
-
-  .cart-btn span:not(.cart-count) {
-    display: none;
   }
 
   .category-tab .tab-en {
