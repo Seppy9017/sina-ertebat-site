@@ -237,7 +237,7 @@ function About() {
       <div className="container about-grid">
         <div>
           <span className="eyebrow">SYS / ABOUT</span>
-          <h2 style={{ marginTop: 14, fontSize: 30, fontWeight: 800 }}>
+          <h2 className="section-heading">
             درباره سینا ارتباط
           </h2>
           <div className="about-copy">
@@ -390,10 +390,10 @@ function Contact() {
       <div className="container contact-grid">
         <div>
           <span className="eyebrow">SYS / CONTACT</span>
-          <h2 style={{ marginTop: 14, fontSize: 30, fontWeight: 800 }}>
+          <h2 className="section-heading">
             تماس با ما
           </h2>
-          <p style={{ color: "var(--text-dim)", marginBottom: 26 }}>
+          <p className="section-subtext">
             برای استعلام قیمت، مشاوره فنی یا هماهنگی بازدید از پروژه با ما در
             تماس باشید.
           </p>
