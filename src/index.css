@@ -1517,7 +1517,7 @@ a.contact-row:hover {
   direction: rtl;
 }
 
-.price-input::placeholder{
+.price-input::placeholder {
   font-family: "Vazirmatn";
   font-size: 12px;
   color: var(--text-faint);
@@ -1618,10 +1618,10 @@ a.contact-row:hover {
   margin-bottom: 14px;
 }
 
-.remove-product button{
+.remove-product button {
   background-color: var(--bg);
 }
 
 .selected-product {
   background-color: var(--panel-border-soft);
-} 
+}
