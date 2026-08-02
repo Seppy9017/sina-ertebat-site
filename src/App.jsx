@@ -237,9 +237,7 @@ function About() {
       <div className="container about-grid">
         <div>
           <span className="eyebrow">SYS / ABOUT</span>
-          <h2 className="section-heading">
-            درباره سینا ارتباط
-          </h2>
+          <h2 className="section-heading">درباره سینا ارتباط</h2>
           <div className="about-copy">
             {ABOUT_TEXT.map((p, i) => (
               <p key={i}>{p}</p>
@@ -390,9 +388,7 @@ function Contact() {
       <div className="container contact-grid">
         <div>
           <span className="eyebrow">SYS / CONTACT</span>
-          <h2 className="section-heading">
-            تماس با ما
-          </h2>
+          <h2 className="section-heading">تماس با ما</h2>
           <p className="section-subtext">
             برای استعلام قیمت، مشاوره فنی یا هماهنگی بازدید از پروژه با ما در
             تماس باشید.
