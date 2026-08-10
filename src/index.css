@@ -1741,3 +1741,7 @@ a.contact-row:hover {
 .selected-product {
   background-color: var(--panel-border-soft);
 }
+
+.admin-tab{
+  overflow-y: hidden;
+}
