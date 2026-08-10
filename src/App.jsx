@@ -597,12 +597,49 @@ function Footer() {
 }
 
 /* ---------------------------------------------------------------------- */
+/* Login prompt modal — shown when a guest tries to add to cart            */
+/* ---------------------------------------------------------------------- */
+
+function LoginPromptModal({ onClose }) {
+  return (
+    <>
+      <div className="cart-overlay" onClick={onClose} />
+      <div className="login-modal" role="dialog" aria-label="نیاز به ورود">
+        <button
+          className="icon-btn login-modal-close"
+          onClick={onClose}
+          aria-label="بستن"
+        >
+          <CloseIcon size={16} />
+        </button>
+        <span className="icon-wrap login-modal-icon">
+          <UserIcon size={22} />
+        </span>
+        <h3>ابتدا وارد شوید</h3>
+        <p>
+          برای افزودن محصول به سبد، ابتدا باید وارد حساب کاربری خود شوید یا
+          ثبت‌نام کنید.
+        </p>
+        <a
+          href="#/panel"
+          className="btn btn-primary login-modal-link"
+          onClick={onClose}
+        >
+          ورود / ثبت‌نام
+        </a>
+      </div>
+    </>
+  );
+}
+
+/* ---------------------------------------------------------------------- */
 /* Public site                                                             */
 /* ---------------------------------------------------------------------- */
 
 function PublicSite() {
   const [cart, setCart] = useState({});
   const [cartOpen, setCartOpen] = useState(false);
+  const [loginPromptOpen, setLoginPromptOpen] = useState(false);
   const [products, setProducts] = useState(loadProducts);
 
   // Pick up any edits made in the admin panel during this session.
@@ -611,6 +648,11 @@ function PublicSite() {
   }, []);
 
   function addToCart(product) {
+    const loggedIn = sessionStorage.getItem("sina_role");
+    if (!loggedIn) {
+      setLoginPromptOpen(true);
+      return;
+    }
     setCart((prev) => {
       const existing = prev[product.id];
       const qty = (existing?.qty || 0) + 1;
@@ -646,6 +688,9 @@ function PublicSite() {
           onClose={() => setCartOpen(false)}
           onChangeQty={changeQty}
         />
+      )}
+      {loginPromptOpen && (
+        <LoginPromptModal onClose={() => setLoginPromptOpen(false)} />
       )}
     </>
   );

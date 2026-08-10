@@ -1205,6 +1205,64 @@ a.contact-row:hover {
 }
 
 /* =========================================================================
+   Login prompt modal — shown when a guest tries to add a product to cart
+   ========================================================================= */
+
+.login-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 92;
+  width: min(360px, 90vw);
+  background: var(--bg-raised);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-l);
+  padding: 30px 24px 24px;
+  text-align: center;
+  animation: modalIn 0.25s var(--ease-out);
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.login-modal-close {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.login-modal-icon {
+  margin: 0 auto 16px;
+  color: var(--accent-amber);
+}
+
+.login-modal h3 {
+  font-size: 17px;
+  margin: 0 0 10px;
+}
+
+.login-modal p {
+  color: var(--text-dim);
+  font-size: 13.5px;
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+
+.login-modal-link {
+  width: 100%;
+  justify-content: center;
+}
+
+/* =========================================================================
    Responsive
    Desktop-first cascade, each tier narrowing further:
    1080 → small laptop   980 → tablet   640 → large phone
