@@ -1742,6 +1742,6 @@ a.contact-row:hover {
   background-color: var(--panel-border-soft);
 }
 
-.admin-tab{
+.admin-tabs{
   overflow-y: hidden;
 }
