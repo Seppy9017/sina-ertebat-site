@@ -19,6 +19,7 @@ import {
 
 import { COMPANY, ABOUT_TEXT, TRUST_POINTS, CATEGORIES } from "./data.js";
 import { loadProducts, saveLead } from "./admin/storage.js";
+import Reveal from "./Reveal.jsx";
 
 import AuthPage from "./admin/AuthPage.jsx";
 import AdminPanel from "./admin/AdminPanel.jsx";
@@ -81,15 +82,19 @@ function Header({ cartCount, onOpenCart }) {
             <UserIcon size={18} />
             <span>{loggedIn ? "پنل من" : "ورود"}</span>
           </a>
-          <button
-            className="cart-btn"
-            onClick={onOpenCart}
-            aria-label="سبد خرید"
-          >
-            <CartIcon size={18} />
-            <span>سبد</span>
-            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-          </button>
+          {loggedIn && (
+            <button
+              className="cart-btn"
+              onClick={onOpenCart}
+              aria-label="سبد خرید"
+            >
+              <CartIcon size={18} />
+              <span>سبد</span>
+              {cartCount > 0 && (
+                <span className="cart-count">{cartCount}</span>
+              )}
+            </button>
+          )}
           <button
             className="menu-toggle"
             onClick={() => setMobileOpen((v) => !v)}
@@ -153,17 +158,19 @@ function Hero() {
       <div className="container hero-grid">
         <div className="hero-copy">
           {/* <img src={logoFull} alt={COMPANY.name} className="hero-logo-full" /> */}
-          <span className="eyebrow">SYS / OVERVIEW</span>
-          <h1>
+          <Reveal as="span" className="eyebrow">
+            SYS / OVERVIEW
+          </Reveal>
+          <Reveal as="h1" delay={90}>
             تجهیزات <span className="accent">امنیتی و برق اضطراری</span> برای
             سازمان‌های دولتی و خصوصی
-          </h1>
-          <p>
+          </Reveal>
+          <Reveal as="p" delay={180}>
             سینا ارتباط تامین‌کننده دوربین مداربسته، یو‌پی‌اس و تجهیزات روشنایی
             است؛ از انتخاب تجهیز مناسب تا نصب، راه‌اندازی و پشتیبانی فنی، در
             کنار مشتریان دولتی و خصوصی در همدان و سراسر کشور.
-          </p>
-          <div className="hero-actions">
+          </Reveal>
+          <Reveal delay={270} className="hero-actions">
             <a href="#products" className="btn btn-primary">
               مشاهده محصولات
               <ChevronIcon size={16} />
@@ -171,7 +178,7 @@ function Hero() {
             <a href="#contact" className="btn btn-ghost">
               درخواست مشاوره
             </a>
-          </div>
+          </Reveal>
         </div>
 
         <div className="monitor-wall">
@@ -191,6 +198,7 @@ function Hero() {
                 <div
                   key={t.tag}
                   className={`monitor-tile${isActive ? " active" : ""}`}
+                  style={{ "--tile-delay": `${i * 70}ms` }}
                 >
                   <IconComp size={22} />
                   {isActive && <span className="rec-dot">REC</span>}
@@ -216,10 +224,15 @@ function TrustStrip() {
         {TRUST_POINTS.map((t, i) => {
           const IconComp = TRUST_ICON[t.icon];
           return (
-            <div className="trust-item" key={i}>
+            <Reveal
+              as="div"
+              className="trust-item"
+              key={i}
+              delay={i * 90}
+            >
               <IconComp size={18} />
               <span>{t.label}</span>
-            </div>
+            </Reveal>
           );
         })}
       </div>
@@ -236,11 +249,17 @@ function About() {
     <section id="about" className="section about">
       <div className="container about-grid">
         <div>
-          <span className="eyebrow">SYS / ABOUT</span>
-          <h2 className="section-heading">درباره سینا ارتباط</h2>
+          <Reveal as="span" className="eyebrow">
+            SYS / ABOUT
+          </Reveal>
+          <Reveal as="h2" delay={80} className="section-heading">
+            درباره سینا ارتباط
+          </Reveal>
           <div className="about-copy">
             {ABOUT_TEXT.map((p, i) => (
-              <p key={i}>{p}</p>
+              <Reveal as="p" key={i} delay={160 + i * 120}>
+                {p}
+              </Reveal>
             ))}
           </div>
         </div>
@@ -249,12 +268,17 @@ function About() {
           {TRUST_POINTS.map((t, i) => {
             const IconComp = TRUST_ICON[t.icon];
             return (
-              <div className="panel-card" key={i}>
+              <Reveal
+                as="div"
+                className="panel-card"
+                key={i}
+                delay={i * 100}
+              >
                 <span className="icon-wrap">
                   <IconComp size={20} />
                 </span>
                 <span className="label">{t.label}</span>
-              </div>
+              </Reveal>
             );
           })}
         </div>
@@ -267,12 +291,12 @@ function About() {
 /* Products                                                                */
 /* ---------------------------------------------------------------------- */
 
-function ProductCard({ product, qty, onAdd }) {
+function ProductCard({ product, qty, onAdd, delay = 0 }) {
   const IconComp = CATEGORY_ICON[iconKeyFor(product.category)];
   const priceText = formatPrice(product.price);
 
   return (
-    <div className="product-card">
+    <Reveal as="div" className="product-card" delay={delay}>
       <div className="product-visual">
         <IconComp size={30} />
       </div>
@@ -310,28 +334,30 @@ function ProductCard({ product, qty, onAdd }) {
           )}
         </button>
       </div>
-    </div>
+    </Reveal>
   );
 }
 
 function Products({ products, cart, onAdd }) {
   const [activeCat, setActiveCat] = useState("cctv");
-  console.log(products);
 
   const filtered = products.filter((p) => p.category === activeCat);
-  console.log(filtered);
 
   return (
     <section id="products" className="section">
       <div className="container">
         <div className="section-head">
-          <span className="eyebrow">SYS / CATALOG</span>
-          <h2>محصولات</h2>
-          <p>
+          <Reveal as="span" className="eyebrow">
+            SYS / CATALOG
+          </Reveal>
+          <Reveal as="h2" delay={80}>
+            محصولات
+          </Reveal>
+          <Reveal as="p" delay={160}>
             دسته‌بندی محصولات بر اساس نوع تجهیز. برای استعلام قیمت و مشاوره خرید
             عمده، محصول مورد نظر را به سبد اضافه کرده و از طریق فرم تماس برای ما
             ارسال کنید.
-          </p>
+          </Reveal>
         </div>
 
         <div className="category-tabs">
@@ -352,12 +378,13 @@ function Products({ products, cart, onAdd }) {
         </div>
 
         <div className="product-grid">
-          {filtered.map((p) => (
+          {filtered.map((p, i) => (
             <ProductCard
               key={p.id}
               product={p}
               qty={cart[p.id]?.qty || 0}
               onAdd={onAdd}
+              delay={(i % 4) * 70}
             />
           ))}
         </div>
@@ -387,36 +414,50 @@ function Contact() {
     <section id="contact" className="section contact">
       <div className="container contact-grid">
         <div>
-          <span className="eyebrow">SYS / CONTACT</span>
-          <h2 className="section-heading">تماس با ما</h2>
-          <p className="section-subtext">
+          <Reveal as="span" className="eyebrow">
+            SYS / CONTACT
+          </Reveal>
+          <Reveal as="h2" delay={80} className="section-heading">
+            تماس با ما
+          </Reveal>
+          <Reveal as="p" delay={140} className="section-subtext">
             برای استعلام قیمت، مشاوره فنی یا هماهنگی بازدید از پروژه با ما در
             تماس باشید.
-          </p>
+          </Reveal>
 
           <div className="contact-info">
-            <a className="contact-row" href={COMPANY.phoneHref}>
+            <Reveal
+              as="a"
+              className="contact-row"
+              href={COMPANY.phoneHref}
+              delay={220}
+            >
               <span className="icon-wrap">
                 <PhoneIcon size={18} />
               </span>
               <span className="value mono">{COMPANY.phoneDisplay}</span>
-            </a>
-            <a className="contact-row" href={`mailto:${COMPANY.email}`}>
+            </Reveal>
+            <Reveal
+              as="a"
+              className="contact-row"
+              href={`mailto:${COMPANY.email}`}
+              delay={280}
+            >
               <span className="icon-wrap">
                 <MailIcon size={18} />
               </span>
               <span className="value mono">{COMPANY.email}</span>
-            </a>
-            <div className="contact-row">
+            </Reveal>
+            <Reveal as="div" className="contact-row" delay={340}>
               <span className="icon-wrap">
                 <PinIcon size={18} />
               </span>
               <span className="value">{COMPANY.address}</span>
-            </div>
+            </Reveal>
           </div>
         </div>
 
-        <form className="contact-form" onSubmit={handleSubmit}>
+        <Reveal as="form" className="contact-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="field">
               <label htmlFor="name">نام و نام خانوادگی</label>
@@ -458,7 +499,7 @@ function Contact() {
               پیام شما ثبت شد. کارشناسان ما به‌زودی با شما تماس می‌گیرند.
             </div>
           )}
-        </form>
+        </Reveal>
       </div>
     </section>
   );
